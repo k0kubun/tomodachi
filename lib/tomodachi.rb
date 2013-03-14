@@ -10,12 +10,9 @@ module Tomodachi
       auth = Tomodachi::Auth.new
       auth.create
     when "list"
+      Tomodachi::Auth.list
     when "init"
     when "start"
-    when "load"
-      Tomodachi::Auth.load_config
-    when "save"
-      Tomodachi::Auth.create
     else
       print(<<-"EOS")
       Usage

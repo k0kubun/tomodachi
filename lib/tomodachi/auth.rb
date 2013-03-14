@@ -67,6 +67,17 @@ module Tomodachi
       end
     end
 
+    def self.list
+      current_conf = Auth.load_config
+      if current_conf
+        current_conf.each do |conf|
+          puts conf[:screen_name]
+        end
+      else
+        puts "There is no authenticated account."
+      end
+    end
+
     def self.load_config
       path = File.expand_path('~/.tomodachi/')
       if FileTest.exist?(path) == false
