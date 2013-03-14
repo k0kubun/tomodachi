@@ -20,12 +20,9 @@ module Tomodachi
 
       say request_token.authorize_url
       system 'open', request_token.authorize_url
-
       pin = ask 'PIN:'
 
-      access_token = request_token.get_access_token(
-        :oauth_verifier => pin
-      )
+      access_token = request_token.get_access_token(oauth_verifier: pin)
 
       Twitter.configure do |config|
         config.consumer_key = CONSUMER_KEY
@@ -36,7 +33,6 @@ module Tomodachi
       user = Twitter.user
 
       conf = Array.new unless conf = Auth.load_config
-
       if Auth.exist_by_id?(user[:id])
         puts user[:screen_name] + ' is already added.'
       else
@@ -91,8 +87,8 @@ module Tomodachi
         return nil
       end
       
-      str = nil
       if FileTest.exist?(CONFIG_PATH)
+        str = nil
         File.open(CONFIG_PATH, 'r') do |f|
           str = f.read
         end
@@ -103,17 +99,22 @@ module Tomodachi
     end
 
     def self.load_token(screen_name)
+      str = nil
       File.open(CONFIG_PATH, 'r') do |f|
         str = f.read
       end
-      conf_all = YAML.load(str)
 
-      conf_all.each do |conf|
-        if conf[:screen_name] == screen_name
-          return conf
+      if str
+        conf_all = YAML.load(str) 
+
+        conf_all.each do |conf|
+          if conf[:screen_name] == screen_name
+            return conf
+          end
         end
+      else
+        nil
       end
-      nil
     end
 
     def self.save_config(conf)
