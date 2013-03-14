@@ -1,0 +1,2 @@
+describe Auth do
+end
