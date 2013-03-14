@@ -9,10 +9,6 @@ module Tomodachi
     include Thor::Actions
     
     CONFIG_PATH = File.expand_path('~/.tomodachi/config.yml')
-
-    # Twitter for iPhone consumer
-    CONSUMER_KEY = 'IQKbtAYlXLripLGPWd0HUA'
-    CONSUMER_SECRET = 'GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU'
     
     def create
       consumer = OAuth::Consumer.new(
@@ -39,23 +35,11 @@ module Tomodachi
       end
       user = Twitter.user
 
-      authenticated = false
-      current_conf = Auth.load_config
-      if current_conf
-        current_conf.each do |conf|
-          if conf[:id] == user[:id]
-            authenticated = true
-            break
-          end
-        end
-      else
-        current_conf = Array.new
-      end
+      conf = Array.new unless conf = Auth.load_config
 
-      if authenticated == true
+      if Auth.exist_by_id?(user[:id])
         puts user[:screen_name] + ' is already added.'
       else
-        conf = current_conf        
         conf += [
           id: user[:id],
           screen_name: user[:screen_name],
@@ -78,6 +62,28 @@ module Tomodachi
       end
     end
 
+    def self.exist?(screen_name)
+      if confs = Auth.load_config
+        confs.each do |conf|
+          if conf[:screen_name] == screen_name
+            return true
+          end
+        end
+      end
+      false
+    end
+    
+    def self.exist_by_id?(id)
+      if confs = Auth.load_config
+        confs.each do |conf|
+          if conf[:id] == id
+            return true
+          end
+        end
+      end
+      false
+    end
+
     def self.load_config
       path = File.expand_path('~/.tomodachi/')
       if FileTest.exist?(path) == false
@@ -94,6 +100,20 @@ module Tomodachi
       else
         nil
       end
+    end
+
+    def self.load_token(screen_name)
+      File.open(CONFIG_PATH, 'r') do |f|
+        str = f.read
+      end
+      conf_all = YAML.load(str)
+
+      conf_all.each do |conf|
+        if conf[:screen_name] == screen_name
+          return conf
+        end
+      end
+      nil
     end
 
     def self.save_config(conf)
