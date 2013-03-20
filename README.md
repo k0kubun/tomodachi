@@ -1,25 +1,17 @@
 # Tomodachi
 
-TODO: Write a gem description
+Automatic follow back tool with Twitter streaming API
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'tomodachi'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install tomodachi
 
 ## Usage
 
-TODO: Write usage instructions here
-
+    $ tomodachi auth
+    $ tomodachi list
+    $ tomodachi start screen_name
+    
 ## Contributing
 
 1. Fork it
