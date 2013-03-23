@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "tomodachi"
   spec.version       = Tomodachi::VERSION
   spec.authors       = ["ikstrm"]
-  spec.email         = ["igzarion.1993@gmail.com"]
+  spec.email         = ["mail@ikst.jp"]
   spec.description   = %q{Automatic follow back tool with Twitter streaming API}
   spec.summary       = %q{Automatic follow back tool with Twitter streaming API}
   spec.homepage      = "https://github.com/ikstrm/tomodachi"
