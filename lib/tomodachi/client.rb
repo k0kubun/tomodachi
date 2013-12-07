@@ -12,14 +12,14 @@ module Tomodachi
           config.oauth_token = conf[:access_token]
           config.oauth_token_secret = conf[:access_token_secret]
         end
-        
+
         Twitter.configure do |config|
           config.consumer_key = CONSUMER_KEY
           config.consumer_secret = CONSUMER_SECRET
           config.oauth_token = conf[:access_token]
           config.oauth_token_secret = conf[:access_token_secret]
         end
-        
+
         client = UserStream.client
         client.user do |status|
           if status["event"] == "follow" && status["source"]["screen_name"] != screen_name

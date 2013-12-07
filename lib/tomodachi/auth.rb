@@ -14,7 +14,7 @@ module Tomodachi
       consumer = OAuth::Consumer.new(
         CONSUMER_KEY,
         CONSUMER_SECRET,
-        :site => 'https://api.twitter.com'
+        site: 'https://api.twitter.com'
       )
       request_token = consumer.get_request_token
 
