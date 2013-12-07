@@ -27,26 +27,27 @@ describe Tomodachi do
       end
     end
 
-    context 'given ARGV: start' do
-      context 'when ARGV is start [screen_name]' do
-        let(:screen_name) { 'tkkbn' }
-        let(:argv) { ['start', screen_name] }
+    # # pending
+    # context 'given ARGV: start' do
+    #   context 'when ARGV is start [screen_name]' do
+    #     let(:screen_name) { 'tkkbn' }
+    #     let(:argv) { ['start', screen_name] }
 
-        it 'starts to follow back for an account of given screen_name' do
-          Tomodachi::Client.should_receive(:start).with(screen_name)
-          Tomodachi.setup
-        end
-      end
+    #     it 'starts to follow back for an account of given screen_name' do
+    #       Tomodachi::Client.should_receive(:start).with(screen_name)
+    #       Tomodachi.setup
+    #     end
+    #   end
 
-      context 'when ARGV is start only' do
-        let(:argv) { ['start'] }
+    #   context 'when ARGV is start only' do
+    #     let(:argv) { ['start'] }
 
-        it 'shows correct command usage' do
-          Tomodachi.should_receive(:puts).with('Usage: tomodachi start [screen_name]')
-          Tomodachi.setup
-        end
-      end
-    end
+    #     it 'shows correct command usage' do
+    #       Tomodachi.should_receive(:puts).with('Usage: tomodachi start [screen_name]')
+    #       Tomodachi.setup
+    #     end
+    #   end
+    # end
 
     context 'given ARGV: diff' do
       context 'when ARGV is diff [screen_name]' do
@@ -54,6 +55,8 @@ describe Tomodachi do
         let(:argv) { ['diff', screen_name] }
 
         it 'shows diff of following and follower' do
+          Tomodachi::Diff.should_receive(:show).with(screen_name)
+          Tomodachi.setup
         end
       end
 
@@ -74,7 +77,6 @@ describe Tomodachi do
         Tomodachi.should_receive(:puts).with(<<-EOS)
 tomodachi auth                # add account
 tomodachi accounts            # authenticated account list
-tomodachi start [screen_name] # follow back automatically
 tomodachi diff [screen_name]  # show your diff between following and follower
         EOS
         Tomodachi.setup

@@ -1,6 +1,7 @@
 require 'tomodachi/version'
 require 'tomodachi/auth'
 require 'tomodachi/client'
+require 'tomodachi/diff'
 
 module Tomodachi
   # Twitter for iPhone consumer
@@ -14,14 +15,16 @@ module Tomodachi
       auth.create
     when 'accounts'
       Tomodachi::Auth.list
-    when 'start'
-      if ARGV[1]
-        Tomodachi::Client.start(ARGV[1])
-      else
-        puts 'Usage: tomodachi start [screen_name]'
-      end
+    # # pending
+    # when 'start'
+    #   if ARGV[1]
+    #     Tomodachi::Client.start(ARGV[1])
+    #   else
+    #     puts 'Usage: tomodachi start [screen_name]'
+    #   end
     when 'diff'
       if ARGV[1]
+        Tomodachi::Diff.show(ARGV[1])
       else
         puts 'Usage: tomodachi diff [screen_name]'
       end
@@ -29,7 +32,6 @@ module Tomodachi
       puts <<-EOS
 tomodachi auth                # add account
 tomodachi accounts            # authenticated account list
-tomodachi start [screen_name] # follow back automatically
 tomodachi diff [screen_name]  # show your diff between following and follower
       EOS
     end
