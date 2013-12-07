@@ -7,9 +7,9 @@ require 'twitter'
 module Tomodachi
   class Auth < Thor::Group
     include Thor::Actions
-    
+
     CONFIG_PATH = File.expand_path('~/.tomodachi/config.yml')
-    
+
     def create
       consumer = OAuth::Consumer.new(
         CONSUMER_KEY,
@@ -68,7 +68,7 @@ module Tomodachi
       end
       false
     end
-    
+
     def self.exist_by_id?(id)
       if confs = Auth.load_config
         confs.each do |conf|
@@ -86,7 +86,7 @@ module Tomodachi
         FileUtils.mkdir_p(path)
         return nil
       end
-      
+
       if FileTest.exist?(CONFIG_PATH)
         str = nil
         File.open(CONFIG_PATH, 'r') do |f|
@@ -105,7 +105,7 @@ module Tomodachi
       end
 
       if str
-        conf_all = YAML.load(str) 
+        conf_all = YAML.load(str)
 
         conf_all.each do |conf|
           if conf[:screen_name] == screen_name
