@@ -1,6 +1,6 @@
-require "tomodachi/version"
-require "tomodachi/auth"
-require "tomodachi/client"
+require 'tomodachi/version'
+require 'tomodachi/auth'
+require 'tomodachi/client'
 
 module Tomodachi
   # Twitter for iPhone consumer
@@ -9,19 +9,19 @@ module Tomodachi
 
   def self.setup
     case ARGV[0]
-    when "auth"
+    when 'auth'
       auth = Tomodachi::Auth.new
       auth.create
-    when "list"
+    when 'list'
       Tomodachi::Auth.list
-    when "start"
+    when 'start'
       if ARGV[1]
         Tomodachi::Client.start(ARGV[1])
       else
-        puts "Usage: tomodachi start [screen_name]"
+        puts 'Usage: tomodachi start [screen_name]'
       end
     else
-      print(<<-"EOS")
+      puts <<-EOS
 tomodachi auth                # add account
 tomodachi accounts            # authenticated account list
 tomodachi start [screen_name] # follow back automatically
