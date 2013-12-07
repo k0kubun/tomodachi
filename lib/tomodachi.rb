@@ -18,14 +18,14 @@ module Tomodachi
       if ARGV[1]
         Tomodachi::Client.start(ARGV[1])
       else
-        puts "Usage: tomodachi start screen_name"
+        puts "Usage: tomodachi start [screen_name]"
       end
     else
       print(<<-"EOS")
-      Usage:
-        tomodachi auth
-        tomodachi list
-        tomodachi start screen_name
+tomodachi auth                # add account
+tomodachi accounts            # authenticated account list
+tomodachi start [screen_name] # follow back automatically
+tomodachi diff [screen_name]  # show your diff between following and follower
       EOS
     end
   end
