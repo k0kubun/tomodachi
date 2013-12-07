@@ -12,13 +12,18 @@ module Tomodachi
     when 'auth'
       auth = Tomodachi::Auth.new
       auth.create
-    when 'list'
+    when 'accounts'
       Tomodachi::Auth.list
     when 'start'
       if ARGV[1]
         Tomodachi::Client.start(ARGV[1])
       else
         puts 'Usage: tomodachi start [screen_name]'
+      end
+    when 'diff'
+      if ARGV[1]
+      else
+        puts 'Usage: tomodachi diff [screen_name]'
       end
     else
       puts <<-EOS
