@@ -1,2 +1,0 @@
-describe Auth do
-end

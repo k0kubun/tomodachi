@@ -1,2 +1,0 @@
-describe Client do
-end
