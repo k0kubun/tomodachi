@@ -3,15 +3,15 @@ class Tomodachi::Client
     if Auth.exist?(screen_name)
       conf = Auth.load_token(screen_name)
       UserStream.configure do |config|
-        config.consumer_key = CONSUMER_KEY
-        config.consumer_secret = CONSUMER_SECRET
+        config.consumer_key = Tomodachi::CONSUMER_KEY
+        config.consumer_secret = Tomodachi::CONSUMER_SECRET
         config.oauth_token = conf[:access_token]
         config.oauth_token_secret = conf[:access_token_secret]
       end
 
       Twitter.configure do |config|
-        config.consumer_key = CONSUMER_KEY
-        config.consumer_secret = CONSUMER_SECRET
+        config.consumer_key = Tomodachi::CONSUMER_KEY
+        config.consumer_secret = Tomodachi::CONSUMER_SECRET
         config.oauth_token = conf[:access_token]
         config.oauth_token_secret = conf[:access_token_secret]
       end

@@ -5,7 +5,7 @@ require 'tomodachi/diff'
 require 'unindent'
 
 class Tomodachi
-  # Twitter for iPhone consumer
+  # Twitter for iPhone credentials
   CONSUMER_KEY = 'IQKbtAYlXLripLGPWd0HUA'
   CONSUMER_SECRET = 'GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU'
 

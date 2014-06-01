@@ -11,8 +11,8 @@ class Tomodachi::Auth < Thor::Group
 
   def create
     consumer = OAuth::Consumer.new(
-      CONSUMER_KEY,
-      CONSUMER_SECRET,
+      Tomodachi::CONSUMER_KEY,
+      Tomodachi::CONSUMER_SECRET,
       site: 'https://api.twitter.com'
     )
     request_token = consumer.get_request_token
@@ -24,8 +24,8 @@ class Tomodachi::Auth < Thor::Group
     access_token = request_token.get_access_token(oauth_verifier: pin)
 
     Twitter.configure do |config|
-      config.consumer_key = CONSUMER_KEY
-      config.consumer_secret = CONSUMER_SECRET
+      config.consumer_key = Tomodachi::CONSUMER_KEY
+      config.consumer_secret = Tomodachi::CONSUMER_SECRET
       config.oauth_token = access_token.token
       config.oauth_token_secret = access_token.secret
     end
