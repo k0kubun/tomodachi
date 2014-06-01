@@ -1,7 +1,6 @@
 require 'tomodachi/version'
 require 'tomodachi/auth'
 require 'tomodachi/client'
-require 'tomodachi/diff'
 require 'unindent'
 
 class Tomodachi
