@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor', '~> 0.18.1'
   spec.add_dependency 'userstream', '~> 1.3.0'
   spec.add_dependency 'oauth', '~> 0.4.7'
+  spec.add_dependency 'unindent', '~> 1.0'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rspec', '~> 2.14.0'

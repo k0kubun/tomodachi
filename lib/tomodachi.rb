@@ -22,10 +22,11 @@ class Tomodachi
         puts 'Usage: tomodachi start [screen_name]'
       end
     else
-      puts <<-EOS
-tomodachi auth  # add account
-tomodachi list  # authenticated account list
-tomodachi start # start automatic following back
+      puts <<-EOS.unindent
+        Usage:
+          tomodachi auth  # add account
+          tomodachi list  # authenticated account list
+          tomodachi start # start automatic following back
       EOS
     end
   end
