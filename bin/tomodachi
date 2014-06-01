@@ -5,4 +5,5 @@ $:.unshift lib unless $:.include? lib
 
 require 'tomodachi'
 
-Tomodachi.setup
+tomodachi = Tomodachi.new
+tomodachi.setup
