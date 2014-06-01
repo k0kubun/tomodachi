@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'userstream', '~> 1.4.0'
   spec.add_dependency 'oauth', '~> 0.4.7'
   spec.add_dependency 'unindent', '~> 1.0'
+  spec.add_dependency 'pry', '~> 0.9.12.6'
 
   spec.add_development_dependency 'bundler'
 end

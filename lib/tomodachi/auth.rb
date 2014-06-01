@@ -3,6 +3,7 @@ require 'oauth'
 require 'thor'
 require 'thor/group'
 require 'twitter'
+require 'pry'
 
 class Tomodachi::Auth < Thor::Group
   include Thor::Actions
