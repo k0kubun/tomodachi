@@ -5,36 +5,54 @@ require 'tomodachi/diff'
 require 'unindent'
 
 class Tomodachi
-  # Twitter for iPhone credentials
-  CONSUMER_KEY = 'IQKbtAYlXLripLGPWd0HUA'
+  CONSUMER_KEY    = 'IQKbtAYlXLripLGPWd0HUA'
   CONSUMER_SECRET = 'GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU'
 
   def setup
-    case ARGV[0]
+    case command
     when 'auth'
       auth.create
     when 'list'
       auth.list
     when 'start'
-      if ARGV[1]
-        Tomodachi::Client.start(ARGV[1])
-      else
-        puts <<-EOS.unindent
-          Usage:
-            tomodachi start [screen_name]
-        EOS
-      end
+      return print_start_usage if screen_name.nil?
+      client.start(screen_name)
     else
-      puts <<-EOS.unindent
-        Usage:
-          tomodachi auth                # add account
-          tomodachi list                # authenticated account list
-          tomodachi start [screen_name] # start automatic following back
-      EOS
+      print_usage
     end
+  end
+
+  private
+
+  def command
+    ARGV[0]
+  end
+
+  def screen_name
+    ARGV[1]
   end
 
   def auth
     @auth ||= Tomodachi::Auth.new
+  end
+
+  def client
+    @client ||= Tomodachi::Client.new
+  end
+
+  def print_usage
+    puts <<-EOS.unindent
+      Usage:
+        tomodachi auth                # add account
+        tomodachi list                # authenticated account list
+        tomodachi start [screen_name] # start automatic following back
+    EOS
+  end
+
+  def print_start_usage
+    puts <<-EOS.unindent
+      Usage:
+        tomodachi start [screen_name]
+    EOS
   end
 end

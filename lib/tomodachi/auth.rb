@@ -57,6 +57,8 @@ class Tomodachi::Auth < Thor::Group
     end
   end
 
+  private
+
   def exist?(screen_name)
     if confs = load_config
       confs.each do |conf|

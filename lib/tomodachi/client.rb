@@ -1,5 +1,5 @@
 class Tomodachi::Client
-  def self.start(screen_name)
+  def start(screen_name)
     if Auth.exist?(screen_name)
       conf = Auth.load_token(screen_name)
       UserStream.configure do |config|
