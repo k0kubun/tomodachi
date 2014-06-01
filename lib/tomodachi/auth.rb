@@ -8,7 +8,7 @@ require 'pry'
 class Tomodachi::Auth < Thor::Group
   include Thor::Actions
 
-  CONFIG_PATH = File.expand_path('~/.tomodachi/config.yml')
+  CONFIG_PATH = File.expand_path('~/.tomodachi')
 
   def create
     load_access_token(access_token)
@@ -71,51 +71,10 @@ class Tomodachi::Auth < Thor::Group
     )
   end
 
-  def exist?(screen_name)
-    if confs = accounts
-      confs.each do |conf|
-        if conf[:screen_name] == screen_name
-          return true
-        end
-      end
-    end
-    false
-  end
-
-  def exist_by_id?(id)
-    if confs = accounts
-      confs.each do |conf|
-        if conf[:id] == id
-          return true
-        end
-      end
-    end
-    false
-  end
-
   def load_config
     if File.exists?(CONFIG_PATH)
       yaml = File.read(CONFIG_PATH)
       YAML.load(yaml)
-    else
-      nil
-    end
-  end
-
-  def load_token(screen_name)
-    str = nil
-    File.open(CONFIG_PATH, 'r') do |f|
-      str = f.read
-    end
-
-    if str
-      conf_all = YAML.load(str)
-
-      conf_all.each do |conf|
-        if conf[:screen_name] == screen_name
-          return conf
-        end
-      end
     else
       nil
     end
