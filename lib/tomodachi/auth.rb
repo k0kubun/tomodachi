@@ -13,7 +13,7 @@ class Tomodachi::Auth < Thor::Group
     consumer = OAuth::Consumer.new(
       CONSUMER_KEY,
       CONSUMER_SECRET,
-      site: 'https://api.twitter.com',
+      site: 'https://api.twitter.com'
     )
     request_token = consumer.get_request_token
 
@@ -23,13 +23,13 @@ class Tomodachi::Auth < Thor::Group
 
     access_token = request_token.get_access_token(oauth_verifier: pin)
 
-    client = Twitter::REST::Client.new do |config|
+    Twitter.configure do |config|
       config.consumer_key = CONSUMER_KEY
       config.consumer_secret = CONSUMER_SECRET
       config.oauth_token = access_token.token
       config.oauth_token_secret = access_token.secret
     end
-    user = client.user
+    user = Twitter.user
 
     conf = Array.new unless conf = Auth.load_config
     if Auth.exist_by_id?(user[:id])
@@ -39,7 +39,7 @@ class Tomodachi::Auth < Thor::Group
         id: user[:id],
         screen_name: user[:screen_name],
         access_token: access_token.token,
-        access_token_secret: access_token.secret,
+        access_token_secret: access_token.secret
       ]
       Auth.save_config(conf)
       puts 'Added configuration for ' + user[:screen_name]
@@ -53,7 +53,7 @@ class Tomodachi::Auth < Thor::Group
         puts conf[:screen_name]
       end
     else
-      puts 'There is no authenticated account.'
+      puts "There is no authenticated account."
     end
   end
 
