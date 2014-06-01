@@ -4,14 +4,23 @@ Automatic follow back tool with Twitter streaming API
 
 ## Installation
 
-    $ gem install tomodachi
+```bash
+$ gem install tomodachi
+```
 
 ## Usage
 
-    $ tomodachi auth
-    $ tomodachi list
-    $ tomodachi start screen_name
-    
+```bash
+# authenticate a twitter user and save its access token
+$ tomodachi auth
+
+# list your authenticated accounts' screen_name
+$ tomodachi list
+
+# start automatic following back
+$ tomodachi start screen_name
+```
+
 ## Contributing
 
 1. Fork it
