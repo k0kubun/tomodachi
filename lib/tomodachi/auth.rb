@@ -31,7 +31,7 @@ class Tomodachi::Auth < Thor::Group
     end
     user = Twitter.user
 
-    conf = Array.new unless conf = load_config
+    conf = Array.new unless conf = accounts
     if exist_by_id?(user[:id])
       puts user[:screen_name] + ' is already added.'
     else
@@ -47,10 +47,11 @@ class Tomodachi::Auth < Thor::Group
   end
 
   def list
-    current_conf = load_config
+    current_conf = accounts
+    puts "Available accounts:"
     if current_conf
       current_conf.each do |conf|
-        puts conf[:screen_name]
+        puts "  #{conf[:screen_name]}"
       end
     else
       puts "There is no authenticated account."
@@ -60,7 +61,7 @@ class Tomodachi::Auth < Thor::Group
   private
 
   def exist?(screen_name)
-    if confs = load_config
+    if confs = accounts
       confs.each do |conf|
         if conf[:screen_name] == screen_name
           return true
@@ -71,7 +72,7 @@ class Tomodachi::Auth < Thor::Group
   end
 
   def exist_by_id?(id)
-    if confs = load_config
+    if confs = accounts
       confs.each do |conf|
         if conf[:id] == id
           return true
@@ -81,22 +82,14 @@ class Tomodachi::Auth < Thor::Group
     false
   end
 
-  def load_config
-    path = File.expand_path('~/.tomodachi/')
-    if FileTest.exist?(path) == false
-      FileUtils.mkdir_p(path)
-      return nil
-    end
-
-    if FileTest.exist?(CONFIG_PATH)
-      str = nil
-      File.open(CONFIG_PATH, 'r') do |f|
-        str = f.read
+  def accounts
+    @accounts =
+      if File.exists?(CONFIG_PATH)
+        yaml = File.read(CONFIG_PATH)
+        YAML.load(yaml) || []
+      else
+        []
       end
-      YAML.load(str)
-    else
-      nil
-    end
   end
 
   def load_token(screen_name)
