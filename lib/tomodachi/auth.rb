@@ -36,7 +36,7 @@ class Tomodachi::Auth < Thor::Group
         puts "  #{conf[:screen_name]}"
       end
     else
-      puts "There is no authenticated account."
+      puts 'There is no authenticated account.'
     end
   end
 
