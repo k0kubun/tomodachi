@@ -1,3 +1,3 @@
-module Tomodachi
+class Tomodachi
   VERSION = "0.0.1"
 end

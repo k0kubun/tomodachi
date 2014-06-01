@@ -3,7 +3,7 @@ require 'tomodachi/auth'
 require 'tomodachi/client'
 require 'tomodachi/diff'
 
-module Tomodachi
+class Tomodachi
   # Twitter for iPhone consumer
   CONSUMER_KEY = 'IQKbtAYlXLripLGPWd0HUA'
   CONSUMER_SECRET = 'GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU'
