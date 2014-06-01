@@ -13,26 +13,19 @@ class Tomodachi
     when 'auth'
       auth = Tomodachi::Auth.new
       auth.create
-    when 'accounts'
+    when 'list'
       Tomodachi::Auth.list
-    # # pending
-    # when 'start'
-    #   if ARGV[1]
-    #     Tomodachi::Client.start(ARGV[1])
-    #   else
-    #     puts 'Usage: tomodachi start [screen_name]'
-    #   end
-    when 'diff'
+    when 'start'
       if ARGV[1]
-        Tomodachi::Diff.show(ARGV[1])
+        Tomodachi::Client.start(ARGV[1])
       else
-        puts 'Usage: tomodachi diff [screen_name]'
+        puts 'Usage: tomodachi start [screen_name]'
       end
     else
       puts <<-EOS
-tomodachi auth                # add account
-tomodachi accounts            # authenticated account list
-tomodachi diff [screen_name]  # show your diff between following and follower
+tomodachi auth  # add account
+tomodachi list  # authenticated account list
+tomodachi start # start automatic following back
       EOS
     end
   end
