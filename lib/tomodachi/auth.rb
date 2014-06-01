@@ -13,6 +13,7 @@ class Tomodachi::Auth < Thor::Group
   def create
     load_access_token(access_token)
 
+    accounts = load_config || []
     if accounts.find { |account| account[:id] == user[:id] }
       puts "#{user[:screen_name]} is already added."
     else
@@ -28,10 +29,10 @@ class Tomodachi::Auth < Thor::Group
   end
 
   def list
-    current_conf = accounts
-    puts "Available accounts:"
-    if current_conf
-      current_conf.each do |conf|
+    accounts = load_config
+    if accounts
+      puts "Available accounts:"
+      accounts.each do |conf|
         puts "  #{conf[:screen_name]}"
       end
     else
@@ -92,14 +93,13 @@ class Tomodachi::Auth < Thor::Group
     false
   end
 
-  def accounts
-    @accounts =
-      if File.exists?(CONFIG_PATH)
-        yaml = File.read(CONFIG_PATH)
-        YAML.load(yaml) || []
-      else
-        []
-      end
+  def load_config
+    if File.exists?(CONFIG_PATH)
+      yaml = File.read(CONFIG_PATH)
+      YAML.load(yaml)
+    else
+      nil
+    end
   end
 
   def load_token(screen_name)
