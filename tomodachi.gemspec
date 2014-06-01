@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Tomodachi::VERSION
   spec.authors       = ['Takashi Kokubun']
   spec.email         = ['takashikkbn@gmail.com']
-  spec.description   = %q{Twitter follower management tool}
-  spec.summary       = %q{Twitter follower management tool}
-  spec.homepage      = 'https://github.com/tkkbn/tomodachi'
+  spec.description   = %q{Automatic follow back tool with Twitter streaming API}
+  spec.summary       = %q{Automatic follow back tool with Twitter streaming API}
+  spec.homepage      = 'https://github.com/k0kubun/tomodachi'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
