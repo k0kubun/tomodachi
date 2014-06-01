@@ -15,7 +15,9 @@ class Tomodachi
       auth.list
     when 'start'
       return print_start_usage if screen_name.nil?
-      client.start(screen_name)
+
+      client = Tomodachi::Client.new(screen_name)
+      client.start
     else
       print_usage
     end
@@ -33,10 +35,6 @@ class Tomodachi
 
   def auth
     @auth ||= Tomodachi::Auth.new
-  end
-
-  def client
-    @client ||= Tomodachi::Client.new
   end
 
   def print_usage

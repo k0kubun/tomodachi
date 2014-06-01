@@ -40,6 +40,15 @@ class Tomodachi::Auth < Thor::Group
     end
   end
 
+  def load_config
+    if File.exists?(CONFIG_PATH)
+      yaml = File.read(CONFIG_PATH)
+      YAML.load(yaml)
+    else
+      nil
+    end
+  end
+
   private
 
   def access_token
@@ -69,15 +78,6 @@ class Tomodachi::Auth < Thor::Group
       Tomodachi::CONSUMER_SECRET,
       site: 'https://api.twitter.com',
     )
-  end
-
-  def load_config
-    if File.exists?(CONFIG_PATH)
-      yaml = File.read(CONFIG_PATH)
-      YAML.load(yaml)
-    else
-      nil
-    end
   end
 
   def save_config(conf)
