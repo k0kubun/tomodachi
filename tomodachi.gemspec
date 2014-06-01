@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ['tomodachi']
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'faraday', '~> 0.8.0'
   spec.add_dependency 'twitter', '~> 4.8.1'
   spec.add_dependency 'thor', '~> 0.18.1'
   spec.add_dependency 'userstream', '~> 1.3.0'
