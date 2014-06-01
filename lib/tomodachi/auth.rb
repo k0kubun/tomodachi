@@ -10,39 +10,19 @@ class Tomodachi::Auth < Thor::Group
   CONFIG_PATH = File.expand_path('~/.tomodachi/config.yml')
 
   def create
-    consumer = OAuth::Consumer.new(
-      Tomodachi::CONSUMER_KEY,
-      Tomodachi::CONSUMER_SECRET,
-      site: 'https://api.twitter.com'
-    )
-    request_token = consumer.get_request_token
+    load_access_token(access_token)
 
-    say request_token.authorize_url
-    system 'open', request_token.authorize_url
-    pin = ask 'PIN:'
-
-    access_token = request_token.get_access_token(oauth_verifier: pin)
-
-    Twitter.configure do |config|
-      config.consumer_key = Tomodachi::CONSUMER_KEY
-      config.consumer_secret = Tomodachi::CONSUMER_SECRET
-      config.oauth_token = access_token.token
-      config.oauth_token_secret = access_token.secret
-    end
-    user = Twitter.user
-
-    conf = Array.new unless conf = accounts
-    if exist_by_id?(user[:id])
-      puts user[:screen_name] + ' is already added.'
+    if accounts.find { |account| account[:id] == user[:id] }
+      puts "#{user[:screen_name]} is already added."
     else
-      conf += [
+      accounts += [
         id: user[:id],
         screen_name: user[:screen_name],
         access_token: access_token.token,
-        access_token_secret: access_token.secret
+        access_token_secret: access_token.secret,
       ]
-      save_config(conf)
-      puts 'Added configuration for ' + user[:screen_name]
+      save_config(accounts)
+      puts "Added configuration for #{user[:screen_name]}"
     end
   end
 
@@ -59,6 +39,35 @@ class Tomodachi::Auth < Thor::Group
   end
 
   private
+
+  def access_token
+    return @access_token if @access_token
+
+    request_token = consumer.get_request_token
+    system('open', request_token.authorize_url)
+    @access_token = request_token.get_access_token(oauth_verifier: ask('PIN:'))
+  end
+
+  def load_access_token(access_token)
+    Twitter.configure do |config|
+      config.consumer_key = Tomodachi::CONSUMER_KEY
+      config.consumer_secret = Tomodachi::CONSUMER_SECRET
+      config.oauth_token = access_token.token
+      config.oauth_token_secret = access_token.secret
+    end
+  end
+
+  def user
+    @user ||= Twitter.user
+  end
+
+  def consumer
+    @consumer ||= OAuth::Consumer.new(
+      Tomodachi::CONSUMER_KEY,
+      Tomodachi::CONSUMER_SECRET,
+      site: 'https://api.twitter.com',
+    )
+  end
 
   def exist?(screen_name)
     if confs = accounts
