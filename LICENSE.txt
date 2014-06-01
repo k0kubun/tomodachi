@@ -1,4 +1,4 @@
-Copyright (c) 2013 ikstrm
+Copyright (c) 2013 Takashi Kokubun
 
 MIT License
 
